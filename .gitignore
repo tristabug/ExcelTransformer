@@ -3,7 +3,7 @@
 scratch/
 assets/
 virt/
-_pycache_/
+__pycache__/
 .DS_Store
 
 # PYTHON ITEMS (from Github)
