@@ -28,9 +28,7 @@ def getValues(ppFileName):
     errors = errorHandling(excelFile, ppFileName, row, col)
 
     if errors:
-        print("errors found")
-        createErrorWindow()
-        # getErrors(errors)
+        createErrorWindow(errors)
     else:
         powerPresentation(excelFile, ppFileName, row, col)
 
@@ -66,10 +64,17 @@ def errorHandling(excelFile, ppFile, row, col):
     return errors
 
 def isFileNameValid(fileName):
-    return fileName + ".pptx" if isinstance(fileName, str) else FALSE
+    nameSplit = os.path.split(fileName)
+    root, ext = os.path.splitext(nameSplit[1])
+
+    if(root and root != " "):
+        return fileName if(ext == ".pptx") else nameSplit[0] + "/" + root + ".pptx"
+        # eventually double check if ext was actually a part of the desired file name
+    else:
+        return FALSE
      
 def isExcelFileValid(filepath):
-    return filepath if isinstance(filepath, str) else FALSE 
+    return filepath if (filepath and filepath != " ") else FALSE 
 
 def isHeadeRowValid(row):
     return int(row) if row and isinstance(int(row), int) else FALSE 
